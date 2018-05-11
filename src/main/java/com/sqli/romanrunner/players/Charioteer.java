@@ -12,4 +12,10 @@ public final class Charioteer extends Player
   {
     return 100;
   }
+
+  @Override
+  int scoreIncrementWhenArrivedAtCoin()
+  {
+    return 10;
+  }
 }

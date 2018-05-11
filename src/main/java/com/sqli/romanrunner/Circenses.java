@@ -1,35 +1,32 @@
 package com.sqli.romanrunner;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
+import com.sqli.romanrunner.drawers.CircensesDrawer;
 import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Player;
 
 public final class Circenses
 {
+  private final CircensesDrawer drawer;
   private final List<TrackSlot> leftTrack;
   private final List<TrackSlot> rightTrack;
   
   private List<TrackSlot> playerCurrentTrack;
   private int playerCurrentPosition;
   
-  Circenses(List<TrackSlot> leftTrack, List<TrackSlot> rightTrack)
+  private TrackSlot previousOverriddenTrackSlot = new PreviousInitialPlayerSlot();
+  
+  Circenses(CircensesDrawer drawer, List<TrackSlot> leftTrack, List<TrackSlot> rightTrack)
   {
+    this.drawer = drawer;
     this.leftTrack = leftTrack;
     this.rightTrack = rightTrack;
   }
-  
+
   public String draw()
   {
-    return IntStream.iterate(leftTrack.size() - 1, index -> index - 1)
-        .limit(leftTrack.size())
-        .mapToObj(index -> String.format("|%c%c|", leftTrack.get(index)
-            .draw(),
-            rightTrack.get(index)
-                .draw()))
-        .collect(Collectors.joining("\n"));
+    return drawer.drawCircenses(leftTrack, rightTrack);
   }
   
   public void setPlayer(final Player player)
@@ -39,24 +36,18 @@ public final class Circenses
   
   public void forwardPlayer() throws ObstacleHitedException
   {
+    final int playerNextPosition = playerCurrentPosition + 1;
+    
     final Player player = (Player)playerCurrentTrack.get(playerCurrentPosition);
     
-    final TrackSlot overriddenTrackSlot = playerCurrentTrack.get(playerCurrentPosition + 1);
+    final TrackSlot overriddenTrackSlot = playerCurrentTrack.get(playerNextPosition);
     
-    if (playerCurrentPosition == 0)
-    {
-      playerCurrentTrack.set(playerCurrentPosition, new PreviousInitialPlayerSlot());
-    }
-    else
-    {
-      playerCurrentTrack.set(playerCurrentPosition, new EmptySlot());
-    }
+    overriddenTrackSlot.arrivedAtByPlayer(player);
     
-    if (overriddenTrackSlot instanceof FinishSlot)
-    {
-      player.arrivedAtFinalLine();
-    }
+    playerCurrentTrack.set(playerCurrentPosition, previousOverriddenTrackSlot);
     
-    playerCurrentTrack.set(++playerCurrentPosition, player);
+    playerCurrentTrack.set(playerCurrentPosition = playerNextPosition, player);
+    
+    previousOverriddenTrackSlot = overriddenTrackSlot;
   }
 }

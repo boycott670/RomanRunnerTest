@@ -39,9 +39,15 @@ public abstract class Player extends TrackSlot
   }
   
   abstract int scoreIncrementWhenArrivedAtFinalLine();
+  abstract int scoreIncrementWhenArrivedAtCoin();
   
   public final void arrivedAtFinalLine()
   {
     score += scoreIncrementWhenArrivedAtFinalLine();
+  }
+  
+  public final void arrivedAtCoin()
+  {
+    score += scoreIncrementWhenArrivedAtCoin();
   }
 }
