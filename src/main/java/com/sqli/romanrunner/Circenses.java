@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Player;
 
 public final class Circenses
 {
   private final List<TrackSlot> leftTrack;
   private final List<TrackSlot> rightTrack;
+  
+  private List<TrackSlot> playerCurrentTrack;
+  private int playerCurrentPosition;
   
   Circenses(List<TrackSlot> leftTrack, List<TrackSlot> rightTrack)
   {
@@ -30,6 +34,18 @@ public final class Circenses
   
   public void setPlayer(final Player player)
   {
-    leftTrack.set(0, player);
+    (playerCurrentTrack = leftTrack).set(playerCurrentPosition = 0, player);
+  }
+  
+  public void forwardPlayer() throws ObstacleHitedException
+  {
+    playerCurrentTrack.set(playerCurrentPosition + 1, playerCurrentTrack.get(playerCurrentPosition));
+    
+    if (playerCurrentPosition == 0)
+    {
+      playerCurrentTrack.set(playerCurrentPosition, new PreviousInitialPlayerSlot());
+    }
+    
+    playerCurrentPosition++;
   }
 }

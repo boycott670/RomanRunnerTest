@@ -2,10 +2,13 @@ package com.sqli.romanrunner.players;
 
 import com.sqli.romanrunner.Circenses;
 import com.sqli.romanrunner.TrackSlot;
+import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 
 public abstract class Player extends TrackSlot
 {
   private final String name;
+  
+  private Circenses circenses;
 
   Player(String name)
   {
@@ -20,6 +23,11 @@ public abstract class Player extends TrackSlot
   
   public final void startGame(final Circenses circenses)
   {
-    circenses.setPlayer(this);
+    (this.circenses = circenses).setPlayer(this);
+  }
+  
+  public final void forward() throws ObstacleHitedException
+  {
+    circenses.forwardPlayer();
   }
 }

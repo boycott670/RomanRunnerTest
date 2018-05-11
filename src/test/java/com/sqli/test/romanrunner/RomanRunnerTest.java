@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.sqli.romanrunner.Circenses;
 import com.sqli.romanrunner.CircensesBuilder;
+import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Charioteer;
 import com.sqli.romanrunner.players.Player;
 
@@ -51,6 +52,24 @@ public class RomanRunnerTest
         .append("|L |") // the Charioteer "Lucius" at the start line
         .toString();
 
+    assertEquals(expectedDisplay, circenses.draw());
+  }
+
+  @Test
+  public void aPlayerCanMoveForward() throws ObstacleHitedException
+  {
+    Circenses circenses = new CircensesBuilder().addEmptySlot()
+        .build();
+
+    Player player = new Charioteer("tiberius");
+    player.startGame(circenses);
+
+    player.forward();
+
+    String expectedDisplay = new StringBuilder().append("|##|\n")
+        .append("|T |\n")
+        .append("|@ |")
+        .toString();
     assertEquals(expectedDisplay, circenses.draw());
   }
 }
