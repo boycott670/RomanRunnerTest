@@ -8,6 +8,7 @@ import com.sqli.romanrunner.Circenses;
 import com.sqli.romanrunner.CircensesBuilder;
 import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Charioteer;
+import com.sqli.romanrunner.players.Knight;
 import com.sqli.romanrunner.players.Player;
 
 public class RomanRunnerTest
@@ -299,5 +300,63 @@ public class RomanRunnerTest
     assertEquals(expectedDisplay, circenses.draw());
 
     player.forward();
+  }
+
+  @Test
+  public void charioteerCanBypassHitObstacle() throws ObstacleHitedException
+  {
+    Circenses circenses = new CircensesBuilder().addCoin()
+        .addEmptySlot()
+        .right()
+        .addCoin()
+        .addEmptySlot()
+        .left()
+        .addCoin()
+        .addObstacle()
+        .build();
+    Player player = new Knight("heniokhos");
+    player.startGame(circenses);
+
+    String expectedDisplay = new StringBuilder().append("|##|\n")
+        .append("|_ |\n")
+        .append("|o |\n")
+        .append("| o|\n")
+        .append("|o |\n")
+        .append("|H |")
+        .toString();
+
+    assertEquals(expectedDisplay, circenses.draw());
+    assertEquals(0, player.score());
+
+    player.forward()
+        .right()
+        .forward()
+        .left()
+        .forward()
+        .forward();
+
+    expectedDisplay = new StringBuilder().append("|##|\n")
+        .append("|H |\n")
+        .append("|x |\n")
+        .append("| x|\n")
+        .append("|x |\n")
+        .append("|@ |")
+        .toString();
+
+    assertEquals(expectedDisplay, circenses.draw());
+    assertEquals(50, player.score());
+
+    player.forward();
+
+    expectedDisplay = new StringBuilder().append("|H#|\n")
+        .append("|_ |\n")
+        .append("|x |\n")
+        .append("| x|\n")
+        .append("|x |\n")
+        .append("|@ |")
+        .toString();
+
+    assertEquals(expectedDisplay, circenses.draw());
+    assertEquals(150, player.score());
   }
 }

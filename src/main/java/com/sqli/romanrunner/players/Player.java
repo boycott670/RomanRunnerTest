@@ -66,7 +66,10 @@ public abstract class Player extends TrackSlot
     return score;
   }
   
-  abstract int scoreIncrementWhenArrivedAtFinalLine();
+  int scoreIncrementWhenArrivedAtFinalLine()
+  {
+    return 100;
+  }
 
   abstract int scoreIncrementWhenArrivedAtCoin();
 

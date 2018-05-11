@@ -1,8 +1,9 @@
 package com.sqli.romanrunner.players;
 
-public final class Charioteer extends Player
+public final class Knight extends Player
 {
-  public Charioteer(String name)
+
+  public Knight(String name)
   {
     super(name);
   }
@@ -10,13 +11,13 @@ public final class Charioteer extends Player
   @Override
   int scoreIncrementWhenArrivedAtCoin()
   {
-    return 10;
+    return 20;
   }
 
   @Override
   int scoreIncrementWhenArrivedAtAnObstacle()
   {
-    die();
-    return -5;
+    return -10;
   }
+
 }
