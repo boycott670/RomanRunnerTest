@@ -1,6 +1,5 @@
 package com.sqli.romanrunner;
 
-import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Player;
 
 final class Obstacle extends ArrivableByPlayerTrackSlot
@@ -13,7 +12,7 @@ final class Obstacle extends ArrivableByPlayerTrackSlot
   }
 
   @Override
-  void arrivedAtByPlayer(Player player) throws ObstacleHitedException
+  void arrivedAtByPlayer(Player player)
   {
     player.arrivedAtAnObstacle();
   }

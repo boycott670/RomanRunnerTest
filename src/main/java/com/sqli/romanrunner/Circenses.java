@@ -3,7 +3,6 @@ package com.sqli.romanrunner;
 import java.util.List;
 
 import com.sqli.romanrunner.drawers.CircensesDrawer;
-import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 import com.sqli.romanrunner.players.Player;
 
 public final class Circenses
@@ -34,7 +33,7 @@ public final class Circenses
     (playerCurrentTrack = leftTrack).set(playerCurrentPosition = 0, player);
   }
   
-  private void movePlayer(final int playerNextPosition, final List<TrackSlot> playerNextTrack) throws ObstacleHitedException
+  private void movePlayer(final int playerNextPosition, final List<TrackSlot> playerNextTrack)
   {
     final Player player = (Player) playerCurrentTrack.get(playerCurrentPosition);
 
@@ -51,17 +50,17 @@ public final class Circenses
     playerCurrentTrack = playerNextTrack;
   }
   
-  public void forwardPlayer() throws ObstacleHitedException
+  public void forwardPlayer()
   {
     movePlayer(playerCurrentPosition + 1, playerCurrentTrack);
   }
   
-  public void rightPlayer() throws ObstacleHitedException
+  public void rightPlayer()
   {
     movePlayer(playerCurrentPosition, rightTrack);
   }
   
-  public void leftPlayer() throws ObstacleHitedException
+  public void leftPlayer()
   {
     movePlayer(playerCurrentPosition, leftTrack);
   }

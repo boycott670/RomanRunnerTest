@@ -30,23 +30,33 @@ public abstract class Player extends TrackSlot
     (this.circenses = circenses).setPlayer(this);
   }
   
+  private void move(final Runnable moveAction) throws ObstacleHitedException
+  {
+    if (isDead)
+    {
+      throw new ObstacleHitedException();
+    }
+    
+    moveAction.run();
+  }
+  
   public final Player forward() throws ObstacleHitedException
   {
-    circenses.forwardPlayer();
+    move(circenses::forwardPlayer);
     
     return this;
   }
   
   public final Player right() throws ObstacleHitedException
   {
-    circenses.rightPlayer();
+    move(circenses::rightPlayer);
     
     return this;
   }
   
   public final Player left() throws ObstacleHitedException
   {
-    circenses.leftPlayer();
+    move(circenses::leftPlayer);
     
     return this;
   }
