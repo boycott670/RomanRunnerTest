@@ -6,4 +6,10 @@ public final class Charioteer extends Player
   {
     super(name);
   }
+
+  @Override
+  int scoreIncrementWhenArrivedAtFinalLine()
+  {
+    return 100;
+  }
 }

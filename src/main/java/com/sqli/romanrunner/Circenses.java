@@ -39,13 +39,24 @@ public final class Circenses
   
   public void forwardPlayer() throws ObstacleHitedException
   {
-    playerCurrentTrack.set(playerCurrentPosition + 1, playerCurrentTrack.get(playerCurrentPosition));
+    final Player player = (Player)playerCurrentTrack.get(playerCurrentPosition);
+    
+    final TrackSlot overriddenTrackSlot = playerCurrentTrack.get(playerCurrentPosition + 1);
     
     if (playerCurrentPosition == 0)
     {
       playerCurrentTrack.set(playerCurrentPosition, new PreviousInitialPlayerSlot());
     }
+    else
+    {
+      playerCurrentTrack.set(playerCurrentPosition, new EmptySlot());
+    }
     
-    playerCurrentPosition++;
+    if (overriddenTrackSlot instanceof FinishSlot)
+    {
+      player.arrivedAtFinalLine();
+    }
+    
+    playerCurrentTrack.set(++playerCurrentPosition, player);
   }
 }

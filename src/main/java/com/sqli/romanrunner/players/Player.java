@@ -7,12 +7,14 @@ import com.sqli.romanrunner.exceptions.ObstacleHitedException;
 public abstract class Player extends TrackSlot
 {
   private final String name;
+  private int score;
   
   private Circenses circenses;
 
   Player(String name)
   {
     this.name = name;
+    score = 0;
   }
 
   @Override
@@ -29,5 +31,17 @@ public abstract class Player extends TrackSlot
   public final void forward() throws ObstacleHitedException
   {
     circenses.forwardPlayer();
+  }
+  
+  public final int score()
+  {
+    return score;
+  }
+  
+  abstract int scoreIncrementWhenArrivedAtFinalLine();
+  
+  public final void arrivedAtFinalLine()
+  {
+    score += scoreIncrementWhenArrivedAtFinalLine();
   }
 }
