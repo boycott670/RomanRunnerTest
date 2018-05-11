@@ -28,14 +28,18 @@ public abstract class Player extends TrackSlot
     (this.circenses = circenses).setPlayer(this);
   }
   
-  public final void forward() throws ObstacleHitedException
+  public final Player forward() throws ObstacleHitedException
   {
     circenses.forwardPlayer();
+    
+    return this;
   }
   
-  public final void right() throws ObstacleHitedException
+  public final Player right() throws ObstacleHitedException
   {
     circenses.rightPlayer();
+    
+    return this;
   } 
   
   public final int score()
