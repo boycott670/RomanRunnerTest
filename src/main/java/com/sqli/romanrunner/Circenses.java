@@ -34,20 +34,30 @@ public final class Circenses
     (playerCurrentTrack = leftTrack).set(playerCurrentPosition = 0, player);
   }
   
+  private void movePlayer(final int playerNextPosition, final List<TrackSlot> playerNextTrack) throws ObstacleHitedException
+  {
+    final Player player = (Player) playerCurrentTrack.get(playerCurrentPosition);
+
+    final TrackSlot overriddenTrackSlot = playerNextTrack.get(playerNextPosition);
+
+    overriddenTrackSlot.arrivedAtByPlayer(player);
+
+    playerCurrentTrack.set(playerCurrentPosition, previousOverriddenTrackSlot);
+
+    playerNextTrack.set(playerCurrentPosition = playerNextPosition, player);
+
+    previousOverriddenTrackSlot = overriddenTrackSlot;
+    
+    playerCurrentTrack = playerNextTrack;
+  }
+  
   public void forwardPlayer() throws ObstacleHitedException
   {
-    final int playerNextPosition = playerCurrentPosition + 1;
-    
-    final Player player = (Player)playerCurrentTrack.get(playerCurrentPosition);
-    
-    final TrackSlot overriddenTrackSlot = playerCurrentTrack.get(playerNextPosition);
-    
-    overriddenTrackSlot.arrivedAtByPlayer(player);
-    
-    playerCurrentTrack.set(playerCurrentPosition, previousOverriddenTrackSlot);
-    
-    playerCurrentTrack.set(playerCurrentPosition = playerNextPosition, player);
-    
-    previousOverriddenTrackSlot = overriddenTrackSlot;
+    movePlayer(playerCurrentPosition + 1, playerCurrentTrack);
+  }
+  
+  public void rightPlayer() throws ObstacleHitedException
+  {
+    movePlayer(playerCurrentPosition, rightTrack);
   }
 }

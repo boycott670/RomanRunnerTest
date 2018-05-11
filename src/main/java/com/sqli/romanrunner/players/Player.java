@@ -33,6 +33,11 @@ public abstract class Player extends TrackSlot
     circenses.forwardPlayer();
   }
   
+  public final void right() throws ObstacleHitedException
+  {
+    circenses.rightPlayer();
+  } 
+  
   public final int score()
   {
     return score;
