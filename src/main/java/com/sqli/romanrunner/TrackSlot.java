@@ -2,5 +2,5 @@ package com.sqli.romanrunner;
 
 public abstract class TrackSlot
 {
-  abstract char draw();
+  public abstract char draw();
 }
