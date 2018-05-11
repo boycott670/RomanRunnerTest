@@ -2,7 +2,7 @@ package com.sqli.romanrunner;
 
 import com.sqli.romanrunner.players.Player;
 
-final class FinishSlot extends TrackSlot
+final class FinishSlot extends NeutralToPlayerArrivableTrackSlot
 {
 
   @Override

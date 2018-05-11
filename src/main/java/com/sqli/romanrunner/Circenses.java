@@ -38,7 +38,7 @@ public final class Circenses
   {
     final Player player = (Player) playerCurrentTrack.get(playerCurrentPosition);
 
-    final TrackSlot overriddenTrackSlot = playerNextTrack.get(playerNextPosition);
+    final ArrivableByPlayerTrackSlot overriddenTrackSlot = (ArrivableByPlayerTrackSlot)playerNextTrack.get(playerNextPosition);
 
     overriddenTrackSlot.arrivedAtByPlayer(player);
 
@@ -59,5 +59,10 @@ public final class Circenses
   public void rightPlayer() throws ObstacleHitedException
   {
     movePlayer(playerCurrentPosition, rightTrack);
+  }
+  
+  public void leftPlayer() throws ObstacleHitedException
+  {
+    movePlayer(playerCurrentPosition, leftTrack);
   }
 }

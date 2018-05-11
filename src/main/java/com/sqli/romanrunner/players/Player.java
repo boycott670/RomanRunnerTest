@@ -9,6 +9,8 @@ public abstract class Player extends TrackSlot
   private final String name;
   private int score;
   
+  private boolean isDead = false;
+  
   private Circenses circenses;
 
   Player(String name)
@@ -20,7 +22,7 @@ public abstract class Player extends TrackSlot
   @Override
   public final char draw()
   {
-    return Character.toUpperCase(name.charAt(0));
+    return isDead ? 'D' : Character.toUpperCase(name.charAt(0));
   }
   
   public final void startGame(final Circenses circenses)
@@ -40,7 +42,14 @@ public abstract class Player extends TrackSlot
     circenses.rightPlayer();
     
     return this;
-  } 
+  }
+  
+  public final Player left() throws ObstacleHitedException
+  {
+    circenses.leftPlayer();
+    
+    return this;
+  }
   
   public final int score()
   {
@@ -48,7 +57,10 @@ public abstract class Player extends TrackSlot
   }
   
   abstract int scoreIncrementWhenArrivedAtFinalLine();
+
   abstract int scoreIncrementWhenArrivedAtCoin();
+
+  abstract int scoreIncrementWhenArrivedAtAnObstacle();
   
   public final void arrivedAtFinalLine()
   {
@@ -58,5 +70,15 @@ public abstract class Player extends TrackSlot
   public final void arrivedAtCoin()
   {
     score += scoreIncrementWhenArrivedAtCoin();
+  }
+  
+  public final void arrivedAtAnObstacle()
+  {
+    score += scoreIncrementWhenArrivedAtAnObstacle();
+  }
+  
+  final void die()
+  {
+    isDead = true;
   }
 }

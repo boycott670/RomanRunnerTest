@@ -18,4 +18,11 @@ public final class Charioteer extends Player
   {
     return 10;
   }
+
+  @Override
+  int scoreIncrementWhenArrivedAtAnObstacle()
+  {
+    die();
+    return -5;
+  }
 }

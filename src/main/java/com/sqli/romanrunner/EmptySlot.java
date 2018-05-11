@@ -1,6 +1,6 @@
 package com.sqli.romanrunner;
 
-final class EmptySlot extends TrackSlot
+final class EmptySlot extends NeutralToPlayerArrivableTrackSlot
 {
 
   @Override

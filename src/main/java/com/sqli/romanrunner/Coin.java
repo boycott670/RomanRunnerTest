@@ -2,7 +2,7 @@ package com.sqli.romanrunner;
 
 import com.sqli.romanrunner.players.Player;
 
-final class Coin extends TrackSlot
+final class Coin extends NeutralToPlayerArrivableTrackSlot
 {
 
   private boolean earned = false;
