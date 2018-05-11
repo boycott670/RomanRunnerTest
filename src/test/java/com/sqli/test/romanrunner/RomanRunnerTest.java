@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import com.sqli.romanrunner.Circenses;
 import com.sqli.romanrunner.CircensesBuilder;
+import com.sqli.romanrunner.players.Charioteer;
+import com.sqli.romanrunner.players.Player;
 
 public class RomanRunnerTest
 {
@@ -24,6 +26,29 @@ public class RomanRunnerTest
         .append("|  |\n") // empty slot
         .append("|o |\n") // the first coin
         .append("|  |") // the start line is empty as no player is registered
+        .toString();
+
+    assertEquals(expectedDisplay, circenses.draw());
+  }
+
+  @Test
+  public void aPlayerCanStartTheGame()
+  {
+    Circenses circenses = new CircensesBuilder().addCoin()
+        .addEmptySlot()
+        .addCoin()
+        .addObstacle()
+        .build();
+
+    Player player = new Charioteer("lucius");
+    player.startGame(circenses);
+
+    String expectedDisplay = new StringBuilder().append("|##|\n") // the final line
+        .append("|_ |\n") // the obstacle
+        .append("|o |\n") // the second coin
+        .append("|  |\n") // empty slot
+        .append("|o |\n") // the first coin
+        .append("|L |") // the Charioteer "Lucius" at the start line
         .toString();
 
     assertEquals(expectedDisplay, circenses.draw());

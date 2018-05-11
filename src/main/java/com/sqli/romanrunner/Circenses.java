@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.sqli.romanrunner.players.Player;
+
 public final class Circenses
 {
   private final List<TrackSlot> leftTrack;
@@ -24,5 +26,10 @@ public final class Circenses
             rightTrack.get(index)
                 .draw()))
         .collect(Collectors.joining("\n"));
+  }
+  
+  public void setPlayer(final Player player)
+  {
+    leftTrack.set(0, player);
   }
 }
